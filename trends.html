@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Trends - Download Chromium</title>
+
+        <link rel="icon" type="image/png" href="/img/favicon.ico">
+
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Platform');
+                data.addColumn('number', 'Downloads');
+                data.addRows([
+                    ['Windows', {{ win_count }}],
+                    ['Mac',     {{ mac_count }}],
+                    ['Linux',   {{ linux_count }}],
+                    ['Linux 64',   {{ linux_x64_count }}]
+                ]);
+
+            var options = {
+                width: 800, height: 600,
+                       title: '{{ count }} Chromium Downloads from past {{ days }} days'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+          }
+        </script>
+    </head>
+    <body>
+        <center><div id="chart_div"></div></center>
+    </body>
+</html>
