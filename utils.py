@@ -33,7 +33,7 @@ class ChromiumPlatform(object):
 
 LINUX     = ChromiumPlatform('Linux',     'Linux',   'chrome-linux.zip')
 LINUX_X64 = ChromiumPlatform('Linux_x64', 'Linux',   'chrome-linux.zip')
-WINDOWS   = ChromiumPlatform('Win',       'Windows', 'public-read/chrome-win32.zip')
+WINDOWS   = ChromiumPlatform('Win',       'Windows', 'chrome-win32.zip')
 MAC       = ChromiumPlatform('Mac',       'Mac',     'chrome-mac.zip')
 
 
