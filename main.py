@@ -59,13 +59,7 @@ class IndexHandler(webapp.RequestHandler):
         if not platform and PlatformNotDetected.all().filter('user_agent =', user_agent).count() == 0:
             platform_not_detected = PlatformNotDetected(user_agent=user_agent)
             platform_not_detected.put()
-            from google.appengine.api import mail
-            mail.send_mail(
-                sender='DownloadChromium Notice <beaufort.francois@gmail.com>',
-                to='<beaufort.francois+download-chromium@gmail.com>',
-                subject='New Platform not detected',
-                body=platform_not_detected.user_agent,
-            )
+
         template_values = {
             'platform': platform,
         }
