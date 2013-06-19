@@ -1,7 +1,8 @@
 application: download-chromium
-version: secure
-runtime: python
+version: secure-python27
+runtime: python27
 api_version: 1
+threadsafe: true
 
 handlers:
 - url: /img
@@ -9,5 +10,5 @@ handlers:
   secure: always
 
 - url: .*
-  script: main.py
+  script: main.app
   secure: always

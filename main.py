@@ -1,7 +1,8 @@
 import datetime
 import os
+import webapp2 as webapp
 
-from google.appengine.ext import db, webapp
+from google.appengine.ext import db 
 from google.appengine.ext.webapp import template, util
 
 from utils import find_platform, get_platform, WINDOWS, MAC, LINUX, LINUX_X64
@@ -68,14 +69,8 @@ class IndexHandler(webapp.RequestHandler):
         self.response.out.write(template.render(path, template_values))
 
 
-def main():
-    application = webapp.WSGIApplication([
-        ('/', IndexHandler),
-        ('/dl/(.*)', DownloadHandler),
-        ('/trends/', TrendsHandler),
-    ], debug=True)
-    util.run_wsgi_app(application)
-
-
-if __name__ == '__main__':
-    main()
+app = webapp.WSGIApplication([
+    ('/', IndexHandler),
+    ('/dl/(.*)', DownloadHandler),
+    ('/trends/', TrendsHandler),
+])
