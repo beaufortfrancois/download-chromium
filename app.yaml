@@ -1,11 +1,13 @@
 application: download-chromium
-version: wording
+version: secure
 runtime: python
 api_version: 1
 
 handlers:
 - url: /img
   static_dir: img
+  secure: always
 
 - url: .*
   script: main.py
+  secure: always
