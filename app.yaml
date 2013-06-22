@@ -9,6 +9,11 @@ handlers:
   static_dir: img
   secure: always
 
+- url: /favicon.ico
+  static_files: img/favicon.ico
+  upload: img/favicon.ico
+  secure: always
+
 - url: .*
   script: main.app
   secure: always
