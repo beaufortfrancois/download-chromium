@@ -2,9 +2,9 @@
     <head>
         <title>Trends - Download Chromium</title>
 
-        <link rel="icon" type="image/png" href="/img/favicon.ico">
+        <link rel="icon" type="image/png" href="/favicon.ico">
 
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="//www.google.com/jsapi"></script>
         <script type="text/javascript">
             google.load("visualization", "1", {packages:["corechart"]});
             google.setOnLoadCallback(drawChart);
@@ -13,10 +13,11 @@
                 data.addColumn('string', 'Platform');
                 data.addColumn('number', 'Downloads');
                 data.addRows([
-                    ['Windows', {{ win_count }}],
-                    ['Mac',     {{ mac_count }}],
-                    ['Linux',   {{ linux_count }}],
-                    ['Linux 64',   {{ linux_x64_count }}]
+                    ['Windows',  {{ win_count }}],
+                    ['Mac',      {{ mac_count }}],
+                    ['Linux',    {{ linux_count }}],
+                    ['Linux 64', {{ linux_x64_count }}],
+                    ['Android',  {{ android_count }}]
                 ]);
 
             var options = {

@@ -5,7 +5,7 @@ import webapp2 as webapp
 from google.appengine.ext import db 
 from google.appengine.ext.webapp import template, util
 
-from utils import find_platform, get_platform, WINDOWS, MAC, LINUX, LINUX_X64
+from utils import find_platform, get_platform, WINDOWS, MAC, LINUX, LINUX_X64, ANDROID
 
 
 class Download(db.Model):
@@ -40,13 +40,15 @@ class TrendsHandler(webapp.RequestHandler):
         mac_count = Download.all().filter('date >', (datetime.datetime.now() - datetime.timedelta(days=days))).filter('platform =', MAC.name).count(limit=None)
         linux_count = Download.all().filter('date >', (datetime.datetime.now() - datetime.timedelta(days=days))).filter('platform =', LINUX.name).count(limit=None)
         linux_x64_count = Download.all().filter('date >', (datetime.datetime.now() - datetime.timedelta(days=days))).filter('platform =', LINUX_X64.name).count(limit=None)
-        count = win_count + mac_count + linux_count
+        android_count = Download.all().filter('date >', (datetime.datetime.now() - datetime.timedelta(days=days))).filter('platform =', ANDROID.name).count(limit=None)
+        count = win_count + mac_count + linux_count + linux_x64_count + android_count
 
         template_values = {
             'win_count': win_count,
             'mac_count': mac_count,
             'linux_count': linux_count,
             'linux_x64_count': linux_x64_count,
+            'android_count': android_count,
             'days': days,
             'count': count,
         }
