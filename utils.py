@@ -35,10 +35,13 @@ LINUX     = ChromiumPlatform('Linux',     'Linux',   'chrome-linux.zip')
 LINUX_X64 = ChromiumPlatform('Linux_x64', 'Linux',   'chrome-linux.zip')
 WINDOWS   = ChromiumPlatform('Win',       'Windows', 'chrome-win32.zip')
 MAC       = ChromiumPlatform('Mac',       'Mac',     'chrome-mac.zip')
+ANDROID   = ChromiumPlatform('Android',   'Android', 'chrome-android.zip')
 
 
 def find_platform(string):
-    if re.search('Win', string):
+    if re.search('Android', string):
+        return ANDROID
+    elif re.search('Win', string):
         return WINDOWS
     elif re.search('Mac', string):
         return MAC
@@ -53,6 +56,6 @@ def find_platform(string):
 
 def get_platform(name):
     try:
-        return [p for p in platforms if p.name == name][0]
+        return [p for p in platforms if p.name.lower() == name.lower()][0]
     except IndexError:
         return None
