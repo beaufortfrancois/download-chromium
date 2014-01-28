@@ -5,7 +5,7 @@ import webapp2 as webapp
 from google.appengine.ext import db 
 from google.appengine.ext.webapp import template, util
 
-from utils import find_platform, get_platform, WINDOWS, MAC, LINUX, LINUX_X64, ANDROID
+from utils import *
 
 
 class Download(db.Model):
@@ -39,6 +39,7 @@ class TrendsHandler(webapp.RequestHandler):
         win_count = Download.all().filter('date >', (datetime.datetime.now() - datetime.timedelta(days=days))).filter('platform =', WINDOWS.name).count(limit=None)
         mac_count = Download.all().filter('date >', (datetime.datetime.now() - datetime.timedelta(days=days))).filter('platform =', MAC.name).count(limit=None)
         linux_count = Download.all().filter('date >', (datetime.datetime.now() - datetime.timedelta(days=days))).filter('platform =', LINUX.name).count(limit=None)
+        linux_cros_count = Download.all().filter('date >', (datetime.datetime.now() - datetime.timedelta(days=days))).filter('platform =', LINUX_CROS.name).count(limit=None)
         linux_x64_count = Download.all().filter('date >', (datetime.datetime.now() - datetime.timedelta(days=days))).filter('platform =', LINUX_X64.name).count(limit=None)
         android_count = Download.all().filter('date >', (datetime.datetime.now() - datetime.timedelta(days=days))).filter('platform =', ANDROID.name).count(limit=None)
         count = win_count + mac_count + linux_count + linux_x64_count + android_count
@@ -47,6 +48,7 @@ class TrendsHandler(webapp.RequestHandler):
             'win_count': win_count,
             'mac_count': mac_count,
             'linux_count': linux_count,
+            'linux_cros_count': linux_count,
             'linux_x64_count': linux_x64_count,
             'android_count': android_count,
             'days': days,
@@ -57,14 +59,20 @@ class TrendsHandler(webapp.RequestHandler):
 
 class IndexHandler(webapp.RequestHandler):
     def get(self):
-        user_agent = self.request.headers['User-Agent']
-        platform = find_platform(user_agent)
+        platform_name = self.request.get('platform')
+        if platform_name:
+            platform = get_platform(platform_name)
+        else:
+            user_agent = self.request.headers['User-Agent']
+            platform = find_platform(user_agent)
+
         if not platform and PlatformNotDetected.all().filter('user_agent =', user_agent).count() == 0:
             platform_not_detected = PlatformNotDetected(user_agent=user_agent)
             platform_not_detected.put()
 
         template_values = {
             'platform': platform,
+            'platforms': platforms,
         }
         path = os.path.join(os.path.dirname(__file__), 'index.html')
 
