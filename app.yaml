@@ -14,6 +14,10 @@ handlers:
   upload: img/favicon.ico
   secure: always
 
+- url: /robots.txt
+  static_files: robots.txt
+  upload: robots.txt
+
 - url: .*
   script: main.app
   secure: always
