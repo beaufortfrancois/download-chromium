@@ -9,6 +9,10 @@
         <link rel="icon" type="image/png" href="/favicon.ico">
         <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
+        {% if platform %}
+        <link rel="prerender" href="/dl/{{ platform.name }}">
+        {% endif %}
+
         <style type='text/css'>
             body {
                 font-family: 'Open Sans', sans-serif;
