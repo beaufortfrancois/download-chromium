@@ -4,9 +4,11 @@ runtime: python27
 api_version: 1
 threadsafe: true
 
+
 handlers:
 - url: /img
   static_dir: img
+  expiration: "99d"
   secure: always
 
 - url: /favicon.ico
