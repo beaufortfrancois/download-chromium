@@ -56,7 +56,6 @@
                 border-bottom: 1px solid #666;
                 position: relative;
                 overflow: hidden;
-                cursor: pointer;
                 margin-top: 64px;
             }
 
@@ -148,12 +147,12 @@
         <p id="blah">
           This is the raw build of {{ platform.pretty_name }}, right off the trunk. It may be tremendously buggy.<br/>
           Consider <a class="canary" href="https://www.google.com/intl/en/chrome/browser/canary.html">Chrome Canary</a> or <a href="http://www.chromium.org/getting-involved/dev-channel">Dev Channel</a> for a build that regularly auto-updates to latest. </p>
-        <div class="button">
           <a id="download" download="chromium.zip" href="/dl/{{ platform.name }}">
+        <div class="button">
             <span>download</span><span>chromium</span>
-          </a>
           <img id="logo" src="/img/logo.png" width="128px" height="128px"/>
         </div>
+          </a>
         {% else %}
         <p id="sorry">Sorry... Chromium doesn't exist yet for your platform.</p>
         {% endif %}
