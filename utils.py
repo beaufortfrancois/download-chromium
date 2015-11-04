@@ -15,14 +15,13 @@ class ChromiumPlatform(object):
         self.name = name
         self.pretty_name = pretty_name
         self.zip_name = zip_name
-        self.last_revision_url = LAST_REVISION_TEMPLATE % {'platform' : self.name}
         platforms.append(self)
 
     def __repr__(self):
         return self.name
 
     def get_last_snapshot_url(self):
-        revision = urlfetch.fetch(self.last_revision_url).content
+        revision = get_revision(self.name)
 
         return LAST_SNAPSHOT_TEMPLATE % {
             'platform': self.name,
@@ -58,5 +57,20 @@ def find_platform(string):
 def get_platform(name):
     try:
         return [p for p in platforms if p.name.lower() == name.lower()][0]
+    except IndexError:
+        return None
+
+def get_platform_string(platform_name, request):
+    if platform_name:
+        platform = get_platform(platform_name)
+    else:
+        user_agent = request.headers['User-Agent']
+        platform = find_platform(user_agent)
+    return platform
+
+def get_revision(name):
+    last_revision_url = LAST_REVISION_TEMPLATE % {'platform' : name}
+    try:
+        return urlfetch.fetch(last_revision_url).content
     except IndexError:
         return None

@@ -3,7 +3,7 @@ import webapp2 as webapp
 
 from google.appengine.ext.webapp import template
 
-from utils import find_platform, get_platform, platforms
+from utils import find_platform, get_platform, platforms, get_revision, get_platform_string
 
 
 class DownloadHandler(webapp.RequestHandler):
@@ -14,18 +14,20 @@ class DownloadHandler(webapp.RequestHandler):
 
         self.redirect(platform.get_last_snapshot_url())
 
+class RevisionHandler(webapp.RequestHandler):
+    def get(self, platform_name):
+        platform = get_platform_string(platform_name, self.request)
+        last_revision = get_revision(platform)
+        self.response.out.write(last_revision)
+
 class IndexHandler(webapp.RequestHandler):
     def get(self):
         platform_name = self.request.get('platform')
-        if platform_name:
-            platform = get_platform(platform_name)
-        else:
-            user_agent = self.request.headers['User-Agent']
-            platform = find_platform(user_agent)
+        platform = get_platform_string(platform_name, self.request)
 
         template_values = {
             'platform': platform,
-            'platforms': platforms,
+            'platforms': platforms
         }
         path = os.path.join(os.path.dirname(__file__), 'index.html')
 
@@ -35,4 +37,5 @@ class IndexHandler(webapp.RequestHandler):
 app = webapp.WSGIApplication([
     ('/', IndexHandler),
     ('/dl/(.*)', DownloadHandler),
+    ('/rev/(.*)', RevisionHandler),
 ])
