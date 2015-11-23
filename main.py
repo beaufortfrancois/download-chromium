@@ -18,7 +18,10 @@ class RevisionHandler(webapp.RequestHandler):
     def get(self, platform_name):
         platform = get_platform_string(platform_name, self.request)
         last_revision = get_revision(platform)
-        self.response.out.write(last_revision)
+        if last_revision:
+            self.response.out.write(last_revision)
+        else:
+            self.error('404');
 
 class IndexHandler(webapp.RequestHandler):
     def get(self):

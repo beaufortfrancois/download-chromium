@@ -189,12 +189,17 @@
       </script>
       <script>
         if (window.fetch){
-            fetch("/rev/").then( r => r.text()).then( rev => {
+            fetch("/rev/{{ platform.name }}").then( response => {
+                if (response.status !== 200) {
+                    return;
+                }
                 var msg = document.querySelector('small.rev');
                 msg.hidden = false;
-                var link = msg.querySelector('a');
-                link.textContent = rev;
-                link.href = "http://crrev.com/" + rev;
+                response.text().then( rev => {
+                    var link = msg.querySelector('a');
+                    link.textContent = rev;
+                    link.href = "http://crrev.com/" + rev;
+                });
             });
         }
     </script>

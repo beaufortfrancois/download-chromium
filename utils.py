@@ -71,6 +71,7 @@ def get_platform_string(platform_name, request):
 def get_revision(name):
     last_revision_url = LAST_REVISION_TEMPLATE % {'platform' : name}
     try:
-        return urlfetch.fetch(last_revision_url).content
+        result = urlfetch.fetch(last_revision_url)
+        return result.content if result.status_code == 200 else None
     except IndexError:
         return None
