@@ -79,6 +79,10 @@
                 color: #6792cc;
             }
 
+            small {
+                transition: opacity 250ms;
+            }
+
             .rotate {
                 -webkit-transform: rotate(360deg);
                    -moz-transform: rotate(360deg);
@@ -153,7 +157,7 @@
               <img id="logo" src="/img/logo.png" width="128px" height="128px"/>
             </div>
           </a>
-          <small hidden class="rev">Build Revision: <a class="rev-num"></a></small>
+          <small style="opacity:0" class="rev">Build Revision: <a class="rev-num"></a></small>
         {% else %}
         <p id="sorry">Sorry... Chromium doesn't exist yet for your platform.</p>
         {% endif %}
@@ -194,7 +198,7 @@
                     return;
                 }
                 var msg = document.querySelector('small.rev');
-                msg.hidden = false;
+                msg.style.opacity = 1;
                 response.text().then( rev => {
                     var link = msg.querySelector('a');
                     link.textContent = rev;
