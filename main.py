@@ -3,21 +3,23 @@ import webapp2 as webapp
 
 from google.appengine.ext.webapp import template
 
-from utils import find_platform, get_platform, platforms, get_revision, get_platform_string
+from utils import build_types, get_build_type, find_platform, get_platform, platforms, get_revision, get_platform_string
 
 
 class DownloadHandler(webapp.RequestHandler):
     def get(self, platform_name):
+        build_type = str(self.request.get('type'))
         platform = get_platform(platform_name)
         if not platform:
             return self.redirect('http://www.youtube.com/e/o_asQwJqWCI?autoplay=1&start=16')
 
-        self.redirect(platform.get_last_snapshot_url())
+        self.redirect(platform.get_last_build_url(build_type))
 
 class RevisionHandler(webapp.RequestHandler):
     def get(self, platform_name):
+        build_type = self.request.get('type')
         platform = get_platform_string(platform_name, self.request)
-        last_revision = get_revision(platform)
+        last_revision = get_revision(platform, build_type)
         if last_revision:
             self.response.out.write(last_revision)
         else:
@@ -25,10 +27,14 @@ class RevisionHandler(webapp.RequestHandler):
 
 class IndexHandler(webapp.RequestHandler):
     def get(self):
+        build_type_name = self.request.get('type')
+        build_type = get_build_type(build_type_name)
         platform_name = self.request.get('platform')
         platform = get_platform_string(platform_name, self.request)
 
         template_values = {
+            'build_type': build_type,
+            'build_types': build_types,
             'platform': platform,
             'platforms': platforms
         }

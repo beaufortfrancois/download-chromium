@@ -3,12 +3,30 @@ import re
 from google.appengine.api import urlfetch
 
 
-LAST_REVISION_TEMPLATE = 'https://commondatastorage.googleapis.com/chromium-browser-snapshots/%(platform)s/LAST_CHANGE'
-LAST_SNAPSHOT_TEMPLATE = 'https://commondatastorage.googleapis.com/chromium-browser-snapshots/%(platform)s/%(revision)s/%(zip_name)s'
+LAST_REVISION_TEMPLATE = 'https://commondatastorage.googleapis.com/chromium-browser-%(build_type)s/%(platform)s/LAST_CHANGE'
+LAST_BUILD_TEMPLATE = 'https://commondatastorage.googleapis.com/chromium-browser-%(build_type)s/%(platform)s/%(revision)s/%(zip_name)s'
 
+build_types = []
+
+class ChromiumBuildType(object):
+    def __init__(self, name, pretty_name):
+        self.name = name
+        self.pretty_name = pretty_name
+        build_types.append(self)
+
+    def __repr__(self):
+        return self.name
+
+SNAPSHOT     = ChromiumBuildType('snapshot',   'Latest')
+CONTINUOUS   = ChromiumBuildType('continuous', 'Last Known Good Revision')
+
+def get_build_type(name):
+    try:
+        return [b for b in build_types if b.name.lower() == name.lower()][0]
+    except IndexError:
+        return SNAPSHOT
 
 platforms = []
-
 
 class ChromiumPlatform(object):
     def __init__(self, name, pretty_name, zip_name):
@@ -20,10 +38,14 @@ class ChromiumPlatform(object):
     def __repr__(self):
         return self.name
 
-    def get_last_snapshot_url(self):
-        revision = get_revision(self.name)
+    def get_last_build_url(self, build_type):
+        if not build_type:
+            build_type = default_build_type
 
-        return LAST_SNAPSHOT_TEMPLATE % {
+        revision = get_revision(self.name, build_type)
+
+        return LAST_BUILD_TEMPLATE % {
+            'build_type': build_type,
             'platform': self.name,
             'revision': revision,
             'zip_name': self.zip_name,
@@ -68,8 +90,8 @@ def get_platform_string(platform_name, request):
         platform = find_platform(user_agent)
     return platform
 
-def get_revision(name):
-    last_revision_url = LAST_REVISION_TEMPLATE % {'platform' : name}
+def get_revision(name, build_type):
+    last_revision_url = LAST_REVISION_TEMPLATE % {'platform': name, 'build_type': build_type}
     try:
         result = urlfetch.fetch(last_revision_url)
         return result.content if result.status_code == 200 else None
