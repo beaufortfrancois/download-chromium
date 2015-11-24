@@ -79,6 +79,10 @@
                 color: #6792cc;
             }
 
+            small {
+                transition: opacity 250ms;
+            }
+
             .rotate {
                 -webkit-transform: rotate(360deg);
                    -moz-transform: rotate(360deg);
@@ -148,16 +152,17 @@
           This is the raw build of {{ platform.pretty_name }}, right off the trunk. It may be tremendously buggy.<br/>
           Consider <a class="canary" href="https://www.google.com/intl/en/chrome/browser/canary.html">Chrome Canary</a> or <a href="http://www.chromium.org/getting-involved/dev-channel">Dev Channel</a> for a build that regularly auto-updates to latest. </p>
           <a id="download" download="chromium.zip" href="/dl/{{ platform.name }}">
-        <div class="button">
-            <span>download</span><span>chromium</span>
-          <img id="logo" src="/img/logo.png" width="128px" height="128px"/>
-        </div>
+            <div class="button">
+              <span>download</span><span>chromium</span>
+              <img id="logo" src="/img/logo.png" width="128px" height="128px"/>
+            </div>
           </a>
+          <small style="opacity:0" class="rev">Build Revision: <a class="rev-num"></a></small>
         {% else %}
         <p id="sorry">Sorry... Chromium doesn't exist yet for your platform.</p>
         {% endif %}
         <p class="credits">
-          <span>created by <a href="https://plus.google.com/100132233764003563318" rel="me">François Beaufort</a></span> - 
+          <span>created by <a href="https://plus.google.com/100132233764003563318" rel="me">François Beaufort</a></span> -
           <span>now maintained by the <a href="http://www.chromium.org">Chromium team</a></span>
         </p>
         <div class="all-platforms">
@@ -185,6 +190,22 @@
             var social  = document.getElementById('social');
             social.classList.add('displayed');
         });
+      </script>
+      <script>
+        if (window.fetch){
+            fetch("/rev/{{ platform.name }}").then( response => {
+                if (response.status !== 200) {
+                    return;
+                }
+                var msg = document.querySelector('small.rev');
+                msg.style.opacity = 1;
+                response.text().then( rev => {
+                    var link = msg.querySelector('a');
+                    link.textContent = rev;
+                    link.href = "http://crrev.com/" + rev;
+                });
+            });
+        }
     </script>
         {% endif %}
     </body>
