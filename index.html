@@ -10,7 +10,7 @@
         <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
         {% if platform %}
-        <link rel="prerender" href="/dl/{{ platform.name }}">
+        <link rel="prerender" href="/dl/{{ platform.name }}?type={{ build_type }}">
         {% endif %}
 
         <style type='text/css'>
@@ -123,7 +123,7 @@
                 opacity: 0.6;
             }
 
-            .all-platforms {
+            footer {
                 background: rgba(0, 0, 0, 0.4);
                 bottom: 0;
                 position: fixed;
@@ -131,9 +131,22 @@
                 line-height: 36px;
             }
 
-             .all-platforms a {
+            footer span {
+                font-size: 65%;
+                white-space: pre;
+                text-transform: uppercase;
+            }
+
+            footer a {
                 font-size: 65%;
                 padding: 0px 4px;
+                white-space: pre;
+            }
+            footer a.selected {
+                background-color: #000;
+                border-radius: 2px;
+                padding-bottom: 2px;
+                color: #9ACD32;
             }
         </style>
         <script type="text/javascript">
@@ -151,9 +164,9 @@
     <body>
         {% if platform %}
         <p id="blah">
-          This is the raw build of {{ platform.pretty_name }}, right off the trunk. It may be tremendously buggy.<br/>
+          This is a raw build of {{ platform.pretty_name }}, right off the trunk. It may be tremendously buggy.<br/>
           Consider <a class="canary" href="https://www.google.com/intl/en/chrome/browser/canary.html">Chrome Canary</a> or <a href="http://www.chromium.org/getting-involved/dev-channel">Dev Channel</a> for a build that regularly auto-updates to latest. </p>
-          <a id="download" download="chromium.zip" href="/dl/{{ platform.name }}">
+          <a id="download" download="chromium.zip" href="/dl/{{ platform.name }}?type={{ build_type }}">
             <div class="button">
               <span>download</span><span>chromium</span>
               <img id="logo" src="/img/logo.png" width="128px" height="128px"/>
@@ -167,11 +180,22 @@
           <span>created by <a href="https://plus.google.com/100132233764003563318" rel="me">François Beaufort</a></span> -
           <span>now maintained by the <a href="http://www.chromium.org">Chromium team</a></span>
         </p>
-        <div class="all-platforms">
-        {% for platform in platforms %}
-          <a href="?platform={{ platform }}">{{ platform.pretty_name }}</a>
-        {% endfor %}
-        </div>
+        <footer>
+          {% if platform %}
+          <div>
+            <span>Build Types:</span>
+          {% for b in build_types %}
+            <a {% if b == build_type %}class="selected"{% endif %} href="?platform={{ platform }}&type={{ b }}">{{ b.pretty_name }}</a>
+          {% endfor %}
+          </div>
+          {% endif %}
+          <div>
+            <span>Supported Platforms:</span>
+          {% for p in platforms %}
+            <a {% if p == platform %}class="selected"{% endif %} href="?platform={{ p }}&type={{ build_type }}">{{ p.pretty_name }}</a>
+          {% endfor %}
+          </div>
+        </footer>
         {% if platform %}
         <div id="social"><g:plusone size="tall" annotation="inline"></g:plusone></div>
     <script type="text/javascript">
@@ -195,7 +219,7 @@
       </script>
       <script>
         if (window.fetch){
-            fetch("/rev/{{ platform.name }}").then( response => {
+            fetch("/rev/{{ platform.name }}?type={{ build_type }}").then( response => {
                 if (response.status !== 200) {
                     return;
                 }
