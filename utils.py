@@ -17,14 +17,14 @@ class ChromiumBuildType(object):
     def __repr__(self):
         return self.name
 
-SNAPSHOT     = ChromiumBuildType('snapshot',   'Latest')
+SNAPSHOTS    = ChromiumBuildType('snapshots',   'Latest')
 CONTINUOUS   = ChromiumBuildType('continuous', 'Last Known Good Revision')
 
 def get_build_type(name):
     try:
         return [b for b in build_types if b.name.lower() == name.lower()][0]
     except IndexError:
-        return SNAPSHOT
+        return SNAPSHOTS
 
 platforms = []
 
@@ -40,7 +40,7 @@ class ChromiumPlatform(object):
 
     def get_last_build_url(self, build_type):
         if not build_type:
-            build_type = default_build_type
+            build_type = SNAPSHOTS
 
         revision = get_revision(self.name, build_type)
 
