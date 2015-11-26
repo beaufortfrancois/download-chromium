@@ -184,7 +184,7 @@
           <small style="opacity:0" class="rev">Build Revision: <a class="rev-num"></a></small>
         {% else %}
         <p id="sorry">Sorry... Chromium doesn't exist yet for your platform.</p>
-        <p id="chromeos" style="display: none">
+        <p id="chromeos" hidden>
           You're on Chrome OS! Excellent. You can optionally <a href="https://support.google.com/chromebook/answer/1086915">switch between Stable, Beta, and Developer channels</a>.
           However, to install Chromium builds is much more <a href="https://www.chromium.org/chromium-os/how-tos-and-troubleshooting/building-chromium-browser">involved</a>.
         </p>
@@ -250,7 +250,7 @@
     <script>
         if (/\bCrOS\b/.test(navigator.userAgent)) {
             // User is probably on Chrome OS. Let's add some details then.
-            document.querySelector('#chromeos').style.display = 'block';
+            document.querySelector('#chromeos').hidden = false;
         }
     </script>
         {% endif %}
