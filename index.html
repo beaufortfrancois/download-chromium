@@ -181,7 +181,7 @@
               <img id="logo" src="/img/logo.png" width="128px" height="128px"/>
             </div>
           </a>
-          <small style="opacity:0" class="rev">Build Revision: <a class="rev-num"></a></small>
+          <small style="opacity:0" class="rev">Build Revision: <a class="rev-num"></a> <span></span></small>
         {% else %}
         <p id="sorry">Sorry... Chromium doesn't exist yet for your platform.</p>
         <p id="chromeos" hidden>
@@ -232,6 +232,35 @@
         });
       </script>
       <script>
+        var DURATION_IN_SECONDS = {
+          epochs: ['year', 'month', 'day', 'hour', 'minute'],
+          year:   31536000,
+          month:  2592000,
+          day:    86400,
+          hour:   3600,
+          minute: 60
+        };
+
+        function getDuration(seconds) {
+          var epoch, interval;
+
+          for (var i = 0; i < DURATION_IN_SECONDS.epochs.length; i++) {
+            epoch = DURATION_IN_SECONDS.epochs[i];
+            interval = Math.floor(seconds / DURATION_IN_SECONDS[epoch]);
+            if (interval >= 1) {
+              return { interval: interval, epoch: epoch };
+            }
+          }
+
+        };
+
+        function timeSince(date) {
+          var seconds = Math.floor((new Date() - new Date(date)) / 1000);
+          var duration = getDuration(seconds);
+          var suffix  = (duration.interval > 1 || duration.interval === 0) ? 's' : '';
+          return duration.interval + ' ' + duration.epoch + suffix + ' ago';
+        };
+
         if (window.fetch){
             fetch("/rev/{{ platform.name }}?type={{ build_type }}").then( response => {
                 if (response.status !== 200) {
@@ -239,10 +268,11 @@
                 }
                 var msg = document.querySelector('small.rev');
                 msg.style.opacity = 1;
-                response.text().then( rev => {
+                response.json().then( rev => {
                     var link = msg.querySelector('a');
-                    link.textContent = rev;
-                    link.href = "http://crrev.com/" + rev;
+                    link.textContent = rev.content;
+                    link.href = "http://crrev.com/" + rev.content;
+                    msg.querySelector('span').textContent = '| Updated ' + timeSince(rev['last-modified']);
                 });
             });
         }

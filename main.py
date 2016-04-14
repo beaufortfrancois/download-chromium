@@ -1,3 +1,4 @@
+import json
 import os
 import webapp2 as webapp
 
@@ -19,9 +20,9 @@ class RevisionHandler(webapp.RequestHandler):
     def get(self, platform_name):
         build_type = self.request.get('type')
         platform = get_platform_string(platform_name, self.request)
-        last_revision = get_revision(platform, build_type)
-        if last_revision:
-            self.response.out.write(last_revision)
+        data = get_revision(platform, build_type)
+        if (data and data['content']):
+            self.response.out.write(json.dumps(data))
         else:
             self.error('404');
 

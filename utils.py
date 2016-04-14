@@ -42,7 +42,7 @@ class ChromiumPlatform(object):
         if not build_type:
             build_type = SNAPSHOTS
 
-        revision = get_revision(self.name, build_type)
+        revision = get_revision(self.name, build_type)['content']
 
         return LAST_BUILD_TEMPLATE % {
             'build_type': build_type,
@@ -94,6 +94,12 @@ def get_revision(name, build_type):
     last_revision_url = LAST_REVISION_TEMPLATE % {'platform': name, 'build_type': build_type}
     try:
         result = urlfetch.fetch(last_revision_url)
-        return result.content if result.status_code == 200 else None
+        return {
+          'content': result.content if result.status_code == 200 else None,
+          'last-modified': result.headers['last-modified']
+        }
     except IndexError:
-        return None
+        return {
+          'content': None,
+          'last-modified': None
+        }
