@@ -199,7 +199,10 @@
           <div>
             <span>Build Types:</span>
           {% for b in build_types %}
+            {% if platform.name == "Mac" and b.name == "continuous" %}
+            {% else %}
             <a {% if b == build_type %}class="selected"{% endif %} href="?platform={{ platform }}&type={{ b }}">{{ b.pretty_name }}</a>
+            {% endif %}
           {% endfor %}
           </div>
           {% endif %}
