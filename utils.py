@@ -1,3 +1,4 @@
+import random
 import re
 
 from google.appengine.api import urlfetch
@@ -92,6 +93,7 @@ def get_platform_string(platform_name, request):
 
 def get_revision(name, build_type):
     last_revision_url = LAST_REVISION_TEMPLATE % {'platform': name, 'build_type': build_type}
+    last_revision_url += '?%s' % random.random()
     try:
         result = urlfetch.fetch(last_revision_url)
         return {
