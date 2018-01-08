@@ -12,7 +12,7 @@ class DownloadHandler(webapp.RequestHandler):
         build_type = str(self.request.get('type'))
         platform = get_platform(platform_name)
         if not platform:
-            return self.redirect('http://www.youtube.com/e/o_asQwJqWCI?autoplay=1&start=16')
+            return self.redirect('https://www.youtube.com/e/o_asQwJqWCI?autoplay=1&start=16')
 
         self.redirect(platform.get_last_build_url(build_type))
 

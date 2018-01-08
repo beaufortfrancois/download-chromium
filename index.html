@@ -4,7 +4,7 @@
         <meta name="description" content="The easiest way to download Chromium">
         <meta name="keywords" content="chromium,download,chrome,build,snapshot,francois,beaufort">
         <meta name="google-site-verification" content="OWR3-zSQgPnnXh6Ny_m_-80tlE_db9z8NXqhHJ03saM" />
-        <link rel="canonical" href="http://download-chromium.appspot.com" />
+        <link rel="canonical" href="https://download-chromium.appspot.com" />
 
         <link rel="icon" type="image/png" href="/favicon.ico">
         <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -174,7 +174,7 @@
         {% if platform %}
         <p id="blah">
           This is a raw build of {{ platform.pretty_name }}, right off the trunk. It may be tremendously buggy.<br/>
-          Consider <a class="canary" href="https://www.google.com/intl/en/chrome/browser/canary.html">Chrome Canary</a> or <a href="http://www.chromium.org/getting-involved/dev-channel">Dev Channel</a> for a build that regularly auto-updates to latest. </p>
+          Consider <a class="canary" href="https://www.google.com/intl/en/chrome/browser/canary.html">Chrome Canary</a> or <a href="https://www.chromium.org/getting-involved/dev-channel">Dev Channel</a> for a build that regularly auto-updates to latest. </p>
           <a id="download" download="chromium.zip" href="/dl/{{ platform.name }}?type={{ build_type }}">
             <div class="button">
               <span>download</span><span>chromium</span>
@@ -191,7 +191,7 @@
         {% endif %}
         <p class="credits">
           <span>created by <a href="https://plus.google.com/+FrancoisBeaufort" rel="me">François Beaufort</a></span> -
-          <span>now maintained by the <a href="http://www.chromium.org">Chromium team</a></span> |
+          <span>now maintained by the <a href="https://www.chromium.org">Chromium team</a></span> |
           <span><a href="https://github.com/beaufortfrancois/download-chromium/issues">File a bug report</a></span>
         </p>
         <footer>
@@ -274,7 +274,7 @@
                 response.json().then( rev => {
                     var link = msg.querySelector('a');
                     link.textContent = rev.content;
-                    link.href = "http://crrev.com/" + rev.content;
+                    link.href = "https://crrev.com/" + rev.content;
                     msg.querySelector('span').textContent = '| Updated ' + timeSince(rev['last-modified']);
                 });
             });
