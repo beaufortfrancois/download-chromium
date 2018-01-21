@@ -54,6 +54,7 @@ class ChromiumPlatform(object):
 
 
 WINDOWS     = ChromiumPlatform('Win',                   'Chromium for Windows x86', 'chrome-win32.zip')
+WINDOWS_X64 = ChromiumPlatform('Win_64'                 'Chromium for Windows x64', 'chrome-win32.zip')
 MAC         = ChromiumPlatform('Mac',                   'Chromium for Mac',         'chrome-mac.zip')
 LINUX       = ChromiumPlatform('Linux',                 'Chromium for Linux x86',   'chrome-linux.zip')
 LINUX_X64   = ChromiumPlatform('Linux_x64',             'Chromium for Linux x64',   'chrome-linux.zip')
@@ -64,6 +65,8 @@ ANDROID     = ChromiumPlatform('Android',               'Chromium for Android', 
 def find_platform(string):
     if re.search('Android', string):
         return ANDROID
+    elif re.search('Win64', string):
+        return WINDOWS_X64
     elif re.search('Win', string):
         return WINDOWS
     elif re.search('Mac', string):
