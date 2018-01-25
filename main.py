@@ -4,7 +4,7 @@ import webapp2 as webapp
 
 from google.appengine.ext.webapp import template
 
-from utils import build_types, get_build_type, find_platform, get_platform, platforms, get_revision, get_platform_string
+from utils import build_types, get_build_type, get_platform, platforms, get_revision, get_platform_string
 
 
 class DownloadHandler(webapp.RequestHandler):
