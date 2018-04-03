@@ -19,7 +19,8 @@ class ChromiumBuildType(object):
         return self.name
 
 SNAPSHOTS    = ChromiumBuildType('snapshots',   'Latest')
-CONTINUOUS   = ChromiumBuildType('continuous', 'Last Known Good Revision')
+#TODO: Clean up build types once we're sure it's not needed anymore
+#CONTINUOUS   = ChromiumBuildType('continuous', 'Last Known Good Revision')
 
 def get_build_type(name):
     try:
