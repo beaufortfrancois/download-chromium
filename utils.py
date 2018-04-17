@@ -54,13 +54,13 @@ class ChromiumPlatform(object):
         }
 
 
-WINDOWS     = ChromiumPlatform('Win',                   'Chromium for Windows x86', 'chrome-win32.zip')
-WINDOWS_X64 = ChromiumPlatform('Win_x64',               'Chromium for Windows x64', 'chrome-win32.zip')
-MAC         = ChromiumPlatform('Mac',                   'Chromium for Mac',         'chrome-mac.zip')
-LINUX       = ChromiumPlatform('Linux',                 'Chromium for Linux x86',   'chrome-linux.zip')
-LINUX_X64   = ChromiumPlatform('Linux_x64',             'Chromium for Linux x64',   'chrome-linux.zip')
-LINUX_CROS  = ChromiumPlatform('Linux_ChromiumOS_Full', 'Chromium OS for Linux',    'chrome-linux.zip')
-ANDROID     = ChromiumPlatform('Android',               'Chromium for Android',     'chrome-android.zip')
+WINDOWS     = ChromiumPlatform('Win',                   'Chromium for Windows x86', 'chromium-win32.zip')
+WINDOWS_X64 = ChromiumPlatform('Win_x64',               'Chromium for Windows x64', 'chromium-win64.zip')
+MAC         = ChromiumPlatform('Mac',                   'Chromium for Mac',         'chromium-mac.zip')
+LINUX       = ChromiumPlatform('Linux',                 'Chromium for Linux x86',   'chromium-linux32.zip')
+LINUX_X64   = ChromiumPlatform('Linux_x64',             'Chromium for Linux x64',   'chromium-linux64.zip')
+LINUX_CROS  = ChromiumPlatform('Linux_ChromiumOS_Full', 'Chromium OS for Linux',    'chromiumos-linux.zip')
+ANDROID     = ChromiumPlatform('Android',               'Chromium for Android',     'chromium-android.zip')
 
 
 def find_platform(user_agent_string):
