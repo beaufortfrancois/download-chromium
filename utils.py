@@ -54,8 +54,8 @@ class ChromiumPlatform(object):
         }
 
 
-WINDOWS     = ChromiumPlatform('Win',                   'Chromium for Windows x86', 'chrome-win32.zip')
-WINDOWS_X64 = ChromiumPlatform('Win_x64',               'Chromium for Windows x64', 'chrome-win32.zip')
+WINDOWS     = ChromiumPlatform('Win',                   'Chromium for Windows x86', 'chrome-win.zip')
+WINDOWS_X64 = ChromiumPlatform('Win_x64',               'Chromium for Windows x64', 'chrome-win.zip')
 MAC         = ChromiumPlatform('Mac',                   'Chromium for Mac',         'chrome-mac.zip')
 LINUX       = ChromiumPlatform('Linux',                 'Chromium for Linux x86',   'chrome-linux.zip')
 LINUX_X64   = ChromiumPlatform('Linux_x64',             'Chromium for Linux x64',   'chrome-linux.zip')
