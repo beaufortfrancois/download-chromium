@@ -59,7 +59,7 @@ WINDOWS_X64 = ChromiumPlatform('Win_x64',               'Chromium for Windows x6
 MAC         = ChromiumPlatform('Mac',                   'Chromium for Mac',         'chrome-mac.zip')
 LINUX       = ChromiumPlatform('Linux',                 'Chromium for Linux x86',   'chrome-linux.zip')
 LINUX_X64   = ChromiumPlatform('Linux_x64',             'Chromium for Linux x64',   'chrome-linux.zip')
-LINUX_CROS  = ChromiumPlatform('Linux_ChromiumOS_Full', 'Chromium OS for Linux',    'chrome-linux.zip')
+LINUX_CROS  = ChromiumPlatform('Linux_ChromiumOS_Full', 'Chromium OS for Linux',    'chrome-chromeos.zip')
 ANDROID     = ChromiumPlatform('Android',               'Chromium for Android',     'chrome-android.zip')
 
 
