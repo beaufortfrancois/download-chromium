@@ -5,7 +5,7 @@ from google.appengine.api import urlfetch
 
 
 LAST_REVISION_TEMPLATE = 'https://commondatastorage.googleapis.com/chromium-browser-%(build_type)s/%(platform)s/LAST_CHANGE'
-LAST_BUILD_TEMPLATE = 'https://commondatastorage.googleapis.com/chromium-browser-%(build_type)s/%(platform)s/%(revision)s/%(zip_name)s'
+LAST_BUILD_TEMPLATE = 'https://commondatastorage.googleapis.com/chromium-browser-%(build_type)s/%(platform)s/refs_heads_main-%(revision)s/%(zip_name)s'
 
 build_types = []
 
