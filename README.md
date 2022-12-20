@@ -8,3 +8,10 @@ You can find the official Google App Engine instance at https://download-chromiu
 Bonus #1: This web application is officially listed on https://www.chromium.org/getting-involved/download-chromium
 
 Bonus #2: Go learn differences between Chromium and Google Chrome at https://chromium.googlesource.com/chromium/src/+/master/docs/chromium_browser_vs_google_chrome.md
+
+### Deployment
+
+```bash
+gcloud config set project download-chromium
+gcloud app deploy --project download-chromium
+```
