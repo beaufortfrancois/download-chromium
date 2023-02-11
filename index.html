@@ -63,16 +63,16 @@
                 position: absolute;
                 top: -39px;
                 left: 0;
-                -webkit-mask-box-image: -webkit-linear-gradient(transparent 32%, black 78%);
+                -webkit-mask-box-image: linear-gradient(transparent 32%, black 78%);
             }
 
-            @-webkit-keyframes woohoo {
-              0%, 100% { opacity: .5; }
-              50%      { opacity: 1;  }
+            @keyframes woohoo {
+                0%, 100% { opacity: .5; }
+                50%      { opacity: 1;  }
             }
 
             .button span {
-                -webkit-animation: woohoo 2s infinite;
+                animation: woohoo 2s infinite;
             }
 
             .button span:nth-child(2) {
@@ -85,18 +85,38 @@
                 margin-top: 8px;
             }
 
-            .rotate {
-                -webkit-transform: rotate(360deg);
-                   -moz-transform: rotate(360deg);
-                    -ms-transform: rotate(360deg);
-                     -o-transform: rotate(360deg);
-                        transform: rotate(360deg);
+            @keyframes rotate {
+                20% {
+                    top: -43px;
+                    transform: rotate(0) scale(.33);
+                }
+                50% {
+                    opacity: 1;
+                    top: -39px;
+                    transform: rotate(-2.5turn) scale(1);
+                }
+                80% {
+                    top: -43px;
+                    transform: rotate(-5turn) scale(.33);
+                }
+                100% {
+                    top: -39px;
+                    transform: rotate(-5turn) scale(1);
+                }
+            }
 
-                -webkit-transition: all 0.6s ease-out;
-                   -moz-transition: all 0.6s ease-out;
-                    -ms-transition: all 0.6s ease-out;
-                     -o-transition: all 0.6s ease-out;
-                        transition: all 0.6s ease-out;
+            .rotate #logo {
+                -webkit-mask-box-image: linear-gradient(transparent 0%, black 0%);
+                animation: rotate 1.5s cubic-bezier(1, 0, 0, 1);
+            }
+
+            @keyframes pop-out {
+                0%, 100% { overflow: hidden; }
+                20%, 80% { overflow: visible; }
+            }
+
+            .rotate .button {
+                animation: pop-out 1.5s cubic-bezier(1, 0, 0, 1);
             }
 
             #social {
@@ -106,11 +126,7 @@
 
             #social.displayed {
                 opacity: 1;
-                -webkit-transition: all 0.8s ease-out;
-                   -moz-transition: all 0.8s ease-out;
-                    -ms-transition: all 0.8s ease-out;
-                     -o-transition: all 0.8s ease-out;
-                        transition: all 0.8s ease-out;
+                transition: all 0.8s ease-out;
             }
 
             #sorry {
@@ -219,7 +235,7 @@
         <div id="social"><g:plusone size="tall" annotation="inline"></g:plusone></div>
     <script type="text/javascript">
         var download = document.getElementById('download');
-        download.addEventListener('click', function() {
+        download.addEventListener('click', function(e) {
             _gaq.push(['_trackPageview', this.pathname]);
             // Google +1 stuff
             (function() {
@@ -228,12 +244,15 @@
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
             })();
 
-            var logo = document.getElementById('logo');
-            logo.classList.add('rotate');
-            setTimeout(function() { logo.classList.remove('rotate'); }, 600);
+            download.classList.add('rotate');
 
             var social  = document.getElementById('social');
             social.classList.add('displayed');
+        });
+        download.addEventListener('animationend', function(e) {
+            if (e.animationName === 'rotate') {
+                download.classList.remove('rotate');
+            }
         });
       </script>
       <script>
