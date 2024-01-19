@@ -1,51 +1,53 @@
-import json
-import os
-import webapp2 as webapp
+from flask import abort, Flask, redirect, render_template, request
 
-from google.appengine.ext.webapp import template
+from utils import (
+    build_types,
+    get_build_type,
+    get_platform,
+    platforms,
+    get_revision,
+    get_platform_string,
+)
 
-from utils import build_types, get_build_type, get_platform, platforms, get_revision, get_platform_string
-
-
-class DownloadHandler(webapp.RequestHandler):
-    def get(self, platform_name):
-        build_type = str(self.request.get('type'))
-        platform = get_platform(platform_name)
-        if not platform:
-            return self.redirect('https://www.youtube.com/embed/o_asQwJqWCI?t=16&autoplay=1')
-
-        self.redirect(platform.get_last_build_url(build_type))
-
-class RevisionHandler(webapp.RequestHandler):
-    def get(self, platform_name):
-        build_type = self.request.get('type')
-        platform = get_platform_string(platform_name, self.request)
-        data = get_revision(platform, build_type)
-        if (data and data['content']):
-            self.response.out.write(json.dumps(data))
-        else:
-            self.error('404');
-
-class IndexHandler(webapp.RequestHandler):
-    def get(self):
-        build_type_name = self.request.get('type')
-        build_type = get_build_type(build_type_name)
-        platform_name = self.request.get('platform')
-        platform = get_platform_string(platform_name, self.request)
-
-        template_values = {
-            'build_type': build_type,
-            'build_types': build_types,
-            'platform': platform,
-            'platforms': platforms
-        }
-        path = os.path.join(os.path.dirname(__file__), 'index.html')
-
-        self.response.out.write(template.render(path, template_values))
+app = Flask(__name__, static_folder="static", static_url_path="")
 
 
-app = webapp.WSGIApplication([
-    ('/', IndexHandler),
-    ('/dl/(.*)', DownloadHandler),
-    ('/rev/(.*)', RevisionHandler),
-])
+@app.get("/dl/<platform_name>")
+def dl(platform_name):
+    build_type = request.args.get("type")
+    platform = get_platform(platform_name)
+    if not platform:
+        return redirect("https://www.youtube.com/embed/o_asQwJqWCI?t=16&autoplay=1")
+
+    return redirect(platform.get_last_build_url(build_type))
+
+
+@app.get("/rev/<platform_name>")
+def revision(platform_name):
+    build_type = request.args.get("type", "")
+    platform = get_platform_string(platform_name, request)
+    data = get_revision(platform, build_type)
+    if data and data["content"]:
+        return data
+    else:
+        abort(404)
+
+
+@app.get("/")
+def index():
+    build_type_name = request.args.get("type", "")
+    build_type = get_build_type(build_type_name)
+    platform_name = request.args.get("platform", "")
+    platform = get_platform_string(platform_name, request)
+
+    return render_template(
+        "index.html",
+        build_type=build_type,
+        build_types=build_types,
+        platform=platform,
+        platforms=platforms,
+    )
+
+
+if __name__ == "__main__":
+    app.run(host="localhost", port=8080, debug=True)

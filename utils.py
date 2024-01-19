@@ -1,7 +1,6 @@
 import random
 import re
-
-from google.appengine.api import urlfetch
+import urlfetch
 
 
 LAST_REVISION_TEMPLATE = 'https://commondatastorage.googleapis.com/chromium-browser-%(build_type)s/%(platform)s/LAST_CHANGE'
@@ -24,7 +23,7 @@ SNAPSHOTS    = ChromiumBuildType('snapshots',   'Latest')
 
 def get_build_type(name):
     try:
-        return [b for b in build_types if b.name.lower() == name.lower()][0]
+        return [b for b in build_types if str.lower(b.name) == str.lower(name)][0]
     except IndexError:
         return SNAPSHOTS
 
@@ -85,7 +84,7 @@ def find_platform(user_agent_string):
 
 def get_platform(name):
     try:
-        return [p for p in platforms if p.name.lower() == name.lower()][0]
+        return [p for p in platforms if str.lower(p.name) == str.lower(name)][0]
     except IndexError:
         return None
 
@@ -103,7 +102,7 @@ def get_revision(name, build_type):
     try:
         result = urlfetch.fetch(last_revision_url)
         return {
-          'content': result.content if result.status_code == 200 else None,
+          'content': result.text if result.status_code == 200 else None,
           'last-modified': result.headers['last-modified']
         }
     except IndexError:
