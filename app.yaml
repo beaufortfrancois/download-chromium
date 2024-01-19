@@ -1,23 +1,6 @@
-runtime: python27
-api_version: 1
-threadsafe: true
-
+runtime: python312
 
 handlers:
-- url: /img
-  static_dir: img
-  expiration: "99d"
-  secure: always
-
-- url: /favicon.ico
-  static_files: img/favicon.ico
-  upload: img/favicon.ico
-  secure: always
-
-- url: /robots.txt
-  static_files: robots.txt
-  upload: robots.txt
-
 - url: .*
   script: main.app
   secure: always
