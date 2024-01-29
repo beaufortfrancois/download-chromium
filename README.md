@@ -1,4 +1,4 @@
-download-chromium
+download-chromium Fastly and securely 
 =================
 
 download-chromium is a web application running on Google App Engine that lets you download the last Chromium builds for Windows, Mac, Linux, Chrome OS and Android.
