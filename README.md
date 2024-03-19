@@ -1,7 +1,9 @@
 download-chromium
 =================
 
-download-chromium is a web application running on Google App Engine that lets you download the last Chromium builds for Windows, Mac, Linux, Chrome OS and Android.
+<img src="static/logo.png" width="48">
+
+This is a web application running on Google App Engine that lets you download the last Chromium builds for Windows, Mac, Linux, Chrome OS and Android.
 
 You can find the official Google App Engine instance at https://download-chromium.appspot.com
 
