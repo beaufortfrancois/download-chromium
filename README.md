@@ -1,15 +1,13 @@
-download-chromium
+download-chromium &nbsp;<img src="static/logo.png" width="46">
 =================
 
-<img src="static/logo.png" width="48">
-
-This is a web application running on Google App Engine that lets you download the last Chromium builds for Windows, Mac, Linux, Chrome OS and Android.
+This is a web application running on Google App Engine that lets you download the latest Chromium builds for Windows, Mac, Linux, Chrome OS, and Android.
 
 You can find the Google App Engine instance at https://download-chromium2.uc.r.appspot.com/
 
 This web application is officially listed on https://www.chromium.org/getting-involved/download-chromium
 
- - Go learn differences between Chromium and Google Chrome at https://chromium.googlesource.com/chromium/src/+/master/docs/chromium_browser_vs_google_chrome.md
+ - Go learn the differences between Chromium and Google Chrome [Here](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/docs/chromium_browser_vs_google_chrome.md)
 
 ### Local Development
 
