@@ -72,7 +72,7 @@ def find_platform(user_agent_string):
     elif re.search('Win', user_agent_string):
         return WINDOWS
     elif re.search('Mac', user_agent_string):
-        return MAC
+        return MAC_ARM
     elif re.search('Linux', user_agent_string):
         if re.search('_64', user_agent_string):
             return LINUX_X64
