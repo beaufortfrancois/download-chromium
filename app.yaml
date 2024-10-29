@@ -1,4 +1,4 @@
-runtime: python312
+runtime: python310
 
 handlers:
 - url: .*

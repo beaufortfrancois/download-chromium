@@ -1,198 +1,47 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Download Chromium</title>
+        <title>Download Chromium!</title>
+        <meta charset='UTF-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="The easiest way to download Chromium">
-        <meta name="keywords" content="chromium,download,chrome,build,snapshot,francois,beaufort">
-        <meta name="google-site-verification" content="OWR3-zSQgPnnXh6Ny_m_-80tlE_db9z8NXqhHJ03saM" />
+        <meta name="keywords" content="chromium,download,chrome,build,snapshot,francois,beaufort,alex313031">
         <link rel="canonical" href="https://download-chromium.appspot.com" />
-
+        <meta itemprop="image" content="/thumb.png">
         <link rel="icon" type="image/png" href="/favicon.ico">
-        <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="/OpenSans.css">
+        <link rel="stylesheet" type="text/css" href="/index.css">
 
         {% if platform %}
         <link rel="prerender" href="/dl/{{ platform.name }}?type={{ build_type }}">
         {% endif %}
 
-        <style type='text/css'>
-            body {
-                font-family: 'Open Sans', sans-serif;
-                color: #777;
-                margin: 0 auto;
-                cursor: default;
-                text-align: center;
-                font-size: 18px;
-                background: #474747 url('data:image/gif;base64,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');
-            }
-
-            a {
-                text-decoration: none;
-                color: #888;
-                text-shadow: 0 1px #333;
-            }
-
-            a:hover {
-                color: #6792cc;
-            }
-
-            #blah {
-                line-height: 30px;
-                margin-top: 128px;
-                padding: 0 64px;
-            }
-
-            .canary:hover {
-                color: #e6c11e;
-            }
-
-            .button {
-                font-size: 22px;
-                background-color: #282828;
-                width: 224px;
-                margin: 0 auto;
-                padding: 8px;
-                border-radius: 4px;
-                box-shadow: inset 0 2px 2px #111;
-                padding-left: 128px;
-                border-bottom: 1px solid #666;
-                position: relative;
-                overflow: hidden;
-                margin-top: 64px;
-            }
-
-            .button img {
-                position: absolute;
-                top: -39px;
-                left: 0;
-                -webkit-mask-box-image: -webkit-linear-gradient(transparent 32%, black 78%);
-            }
-
-            @-webkit-keyframes woohoo {
-              0%, 100% { opacity: .5; }
-              50%      { opacity: 1;  }
-            }
-
-            .button span {
-                -webkit-animation: woohoo 2s infinite;
-            }
-
-            .button span:nth-child(2) {
-                color: #6792cc;
-            }
-
-            small {
-                transition: opacity 250ms;
-                display: block;
-                margin-top: 8px;
-            }
-
-            .rotate {
-                -webkit-transform: rotate(360deg);
-                   -moz-transform: rotate(360deg);
-                    -ms-transform: rotate(360deg);
-                     -o-transform: rotate(360deg);
-                        transform: rotate(360deg);
-
-                -webkit-transition: all 0.6s ease-out;
-                   -moz-transition: all 0.6s ease-out;
-                    -ms-transition: all 0.6s ease-out;
-                     -o-transition: all 0.6s ease-out;
-                        transition: all 0.6s ease-out;
-            }
-
-            #social {
-                margin-top: 60px;
-                opacity: 0;
-            }
-
-            #social.displayed {
-                opacity: 1;
-                -webkit-transition: all 0.8s ease-out;
-                   -moz-transition: all 0.8s ease-out;
-                    -ms-transition: all 0.8s ease-out;
-                     -o-transition: all 0.8s ease-out;
-                        transition: all 0.8s ease-out;
-            }
-
-            #sorry {
-                margin-top: 64px;
-                color: #9ACD32;
-            }
-
-            #chromeos {
-                width: 512px;
-                margin: 0 auto;
-            }
-
-            #chromeos a {
-                white-space: pre;
-            }
-
-            .credits {
-                font-size: 70%;
-                opacity: 0.6;
-            }
-
-            footer {
-                background: rgba(0, 0, 0, 0.4);
-                bottom: 0;
-                position: fixed;
-                width: 100%;
-                line-height: 36px;
-            }
-
-            footer span {
-                font-size: 65%;
-                white-space: pre;
-                text-transform: uppercase;
-            }
-
-            footer a {
-                font-size: 65%;
-                padding: 0px 4px;
-                white-space: pre;
-            }
-            footer a.selected {
-                background-color: #000;
-                border-radius: 2px;
-                padding-bottom: 2px;
-                color: #9ACD32;
-            }
-        </style>
-        <script type="text/javascript">
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', 'UA-17064752-3']);
-          _gaq.push(['_trackPageview']);
-
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
-        </script>
     </head>
     <body>
         {% if platform %}
-        <p id="blah">
-          This is a raw build of {{ platform.pretty_name }}, right off the trunk. It may be tremendously buggy.<br/>
-          Consider <a class="canary" href="https://www.google.com/intl/en/chrome/browser/canary.html">Chrome Canary</a> or <a href="https://www.chromium.org/getting-involved/dev-channel">Dev Channel</a> for a build that regularly auto-updates to latest. </p>
-          <a id="download" download="chromium.zip" href="/dl/{{ platform.name }}?type={{ build_type }}">
+        <p id="header">
+          This is a raw build of {{ platform.pretty_name }}, right off the trunk. It may be tremendously buggy.
+          <br>
+          <br>
+        </p>
+          <a style="text-decoration: none;" id="download" download="chromium.zip" href="/dl/{{ platform.name }}?type={{ build_type }}">
             <div class="button">
-              <span>download</span><span>chromium</span>
-              <img id="logo" src="/logo.png" width="128px" height="128px"/>
+              <span>Download</span>&nbsp;<span>Chromium</span>
+              <img id="logo" src="/logo.png" width="124px" height="124px"/>
             </div>
           </a>
-          <small style="opacity:0" class="rev">Build Revision: <a class="rev-num"></a> <span></span></small>
+          <small style="opacity:0" class="rev">Build Revision: <a rel="noopener" target="_blank" class="rev-num"></a> <span></span></small>
         {% else %}
         <p id="sorry">Sorry... Chromium doesn't exist yet for your platform.</p>
         <p id="chromeos" hidden>
-          You're on Chrome OS! Excellent. You can optionally <a href="https://support.google.com/chromebook/answer/1086915">switch between Stable, Beta, and Developer channels</a>.
-          However, to install Chromium builds is much more <a href="https://www.chromium.org/chromium-os/how-tos-and-troubleshooting/building-chromium-browser">involved</a>.
+          You're on Chrome OS! Excellent. You can optionally <a rel="noopener" target="_blank" href="https://support.google.com/chromebook/answer/1086915">switch between Stable, Beta, and Developer channels</a>.
+          However, to install Chromium builds is much more <a rel="noopener" target="_blank" href="https://www.chromium.org/chromium-os/how-tos-and-troubleshooting/building-chromium-browser">involved</a>.
         </p>
         {% endif %}
         <p class="credits">
-          <span>created by <a href="https://plus.google.com/+FrancoisBeaufort" rel="me">François Beaufort</a></span> -
-          <span>now maintained by the <a href="https://www.chromium.org">Chromium team</a></span> |
-          <span><a href="https://github.com/beaufortfrancois/download-chromium/issues">File a bug report</a></span>
+          <span>Created by <a rel="noopener me" target="_blank" href="https://github.com/beaufortfrancois">François Beaufort</a></span> &amp;
+          <span>maintained by <a rel="noopener author" target="_blank" href="https://github.com/Alex313031/download-chromium">Alex313031</a></span> |
+          <span><em><a rel="noopener" target="_blank" href="https://github.com/Alex313031/download-chromium/issues">File a bug report</a></em></span>
         </p>
         <footer>
           <!--
@@ -208,8 +57,8 @@
           </div>
           {% endif %}
           -->
-          <div>
-            <span>Supported Platforms:</span>
+          <div class="platforms">
+            <span><em>Supported Platforms:</em></span>
           {% for p in platforms %}
             <a {% if p == platform %}class="selected"{% endif %} href="?platform={{ p }}&type={{ build_type }}">{{ p.pretty_name }}</a>
           {% endfor %}
@@ -217,25 +66,6 @@
         </footer>
         {% if platform %}
         <div id="social"><g:plusone size="tall" annotation="inline"></g:plusone></div>
-    <script type="text/javascript">
-        var download = document.getElementById('download');
-        download.addEventListener('click', function() {
-            _gaq.push(['_trackPageview', this.pathname]);
-            // Google +1 stuff
-            (function() {
-                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                po.src = 'https://apis.google.com/js/plusone.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-            })();
-
-            var logo = document.getElementById('logo');
-            logo.classList.add('rotate');
-            setTimeout(function() { logo.classList.remove('rotate'); }, 600);
-
-            var social  = document.getElementById('social');
-            social.classList.add('displayed');
-        });
-      </script>
       <script>
         var DURATION_IN_SECONDS = {
           epochs: ['year', 'month', 'day', 'hour', 'minute'],
