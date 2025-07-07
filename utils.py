@@ -53,16 +53,17 @@ class ChromiumPlatform(object):
         }
 
 
-WINDOWS       = ChromiumPlatform('Win',                   'Chromium for Windows x86',   'chrome-win.zip')
-WINDOWS_X64   = ChromiumPlatform('Win_x64',               'Chromium for Windows x64',   'chrome-win.zip')
-MAC           = ChromiumPlatform('Mac',                   'Chromium for Mac Intel',     'chrome-mac.zip')
-MAC_ARM       = ChromiumPlatform('Mac_Arm',               'Chromium for Mac ARM',       'chrome-mac.zip')
-LINUX         = ChromiumPlatform('Linux',                 'Chromium for Linux x86',     'chrome-linux.zip')
-LINUX_X64     = ChromiumPlatform('Linux_x64',             'Chromium for Linux x64',     'chrome-linux.zip')
-LINUX_CROS    = ChromiumPlatform('Linux_ChromiumOS_Full', 'Chromium OS for Linux',      'chrome-chromeos.zip')
-ANDROID       = ChromiumPlatform('Android',               'Chromium for Android',       'chrome-android.zip')
-ANDROID_ARM64 = ChromiumPlatform('Android_Arm64',         'Chromium for Android ARM64', 'chrome-android.zip')
-
+WINDOWS               = ChromiumPlatform('Win',                     'Windows x86',           'chrome-win.zip')
+WINDOWS_X64           = ChromiumPlatform('Win_x64',                 'Windows x64',           'chrome-win.zip')
+MAC                   = ChromiumPlatform('Mac',                     'Mac Intel',             'chrome-mac.zip')
+MAC_ARM               = ChromiumPlatform('Mac_Arm',                 'Mac ARM',               'chrome-mac.zip')
+LINUX                 = ChromiumPlatform('Linux',                   'Linux x86',             'chrome-linux.zip')
+LINUX_X64             = ChromiumPlatform('Linux_x64',               'Linux x64',             'chrome-linux.zip')
+LINUX_CROS            = ChromiumPlatform('Linux_ChromiumOS_Full',   'Chromium OS for Linux', 'chrome-chromeos.zip')
+ANDROID               = ChromiumPlatform('Android',                 'Android',               'chrome-android.zip')
+ANDROID_ARM64         = ChromiumPlatform('Android_Arm64',           'Android ARM64',         'chrome-android.zip')
+ANDROID_DESKTOP       = ChromiumPlatform('AndroidDesktop_x64',      'Android Desktop',       'chrome-android-desktop.zip')
+ANDROID_DESKTOP_ARM64 = ChromiumPlatform('AndroidDesktop_arm64',    'Android Desktop ARM64', 'chrome-android-desktop.zip')
 
 def find_platform(user_agent_string):
     if re.search('Android', user_agent_string):
