@@ -62,7 +62,7 @@ LINUX_X64             = ChromiumPlatform('Linux_x64',               'Linux x64',
 LINUX_CROS            = ChromiumPlatform('Linux_ChromiumOS_Full',   'Chromium OS for Linux', 'chrome-chromeos.zip')
 ANDROID               = ChromiumPlatform('Android',                 'Android',               'chrome-android.zip')
 ANDROID_ARM64         = ChromiumPlatform('Android_Arm64',           'Android ARM64',         'chrome-android.zip')
-ANDROID_DESKTOP       = ChromiumPlatform('AndroidDesktop_x64',      'Android Desktop',       'chrome-android-desktop.zip')
+ANDROID_DESKTOP       = ChromiumPlatform('AndroidDesktop_x64',      'Android Desktop x64',   'chrome-android-desktop.zip')
 ANDROID_DESKTOP_ARM64 = ChromiumPlatform('AndroidDesktop_arm64',    'Android Desktop ARM64', 'chrome-android-desktop.zip')
 
 def find_platform(user_agent_string):
